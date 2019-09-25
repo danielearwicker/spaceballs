@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/spaceballs/static/css/main.6ca495af.chunk.css",
-    "main.js": "/spaceballs/static/js/main.dbbcc124.chunk.js",
-    "main.js.map": "/spaceballs/static/js/main.dbbcc124.chunk.js.map",
+    "main.css": "/spaceballs/static/css/main.8c3637c7.chunk.css",
+    "main.js": "/spaceballs/static/js/main.9adb547a.chunk.js",
+    "main.js.map": "/spaceballs/static/js/main.9adb547a.chunk.js.map",
     "runtime-main.js": "/spaceballs/static/js/runtime-main.56b61280.js",
     "runtime-main.js.map": "/spaceballs/static/js/runtime-main.56b61280.js.map",
     "static/js/2.583705ad.chunk.js": "/spaceballs/static/js/2.583705ad.chunk.js",
     "static/js/2.583705ad.chunk.js.map": "/spaceballs/static/js/2.583705ad.chunk.js.map",
     "index.html": "/spaceballs/index.html",
-    "precache-manifest.575cb90d5d467533dbdb6a7127cd82f7.js": "/spaceballs/precache-manifest.575cb90d5d467533dbdb6a7127cd82f7.js",
+    "precache-manifest.66bf1d684d32e296be831cc1e1f70cab.js": "/spaceballs/precache-manifest.66bf1d684d32e296be831cc1e1f70cab.js",
     "service-worker.js": "/spaceballs/service-worker.js",
-    "static/css/main.6ca495af.chunk.css.map": "/spaceballs/static/css/main.6ca495af.chunk.css.map"
+    "static/css/main.8c3637c7.chunk.css.map": "/spaceballs/static/css/main.8c3637c7.chunk.css.map"
   }
 }

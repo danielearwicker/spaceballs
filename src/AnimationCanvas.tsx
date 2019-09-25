@@ -26,7 +26,7 @@ export function AnimationCanvas({ className, render }: AnimationCanvasProps) {
             if (!container) return;
 
             const w = container.clientWidth, 
-                  h = container.clientHeight;
+                  h = container.clientHeight - 1;
 
             if (canvas.width !== w) canvas.width = w * dpr;
             if (canvas.height !== h) canvas.height = h * dpr;
