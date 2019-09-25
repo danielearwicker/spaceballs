@@ -13,7 +13,12 @@ export function App() {
     return (
         <div className="app">
             <div className="caption">
-                Press Z to rotate your ship anti-clockwise, X for clockwise. Press M to fire your booster rocket.
+                <div className="instructions">
+                    Press Z to rotate your ship anti-clockwise, X for clockwise. Press M to fire your booster rocket.
+                </div>
+                <div className="link">
+                    <a href="https://github.com/danielearwicker/spaceballs/">Source</a>
+                </div>
             </div>
             <AnimationCanvas render={renderFrame}/>
         </div>

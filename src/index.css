@@ -24,6 +24,21 @@ body {
 .caption {
   grid-row: 1;
   padding: 1em;
+  display: grid;
+  grid-template-columns: 1fr auto;  
+  background: #222;
+}
+
+.instructions {
+  grid-column: 1;
+}
+
+.link {
+  grid-column: 2;
+}
+
+.link a {
+  color: silver;
 }
 
 .animation-canvas {
