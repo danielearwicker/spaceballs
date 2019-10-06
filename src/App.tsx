@@ -3,10 +3,12 @@ import { PolarCanvas } from "./PolarCanvas";
 import { ship } from "./ship";
 import { Planet } from "./Planet";
 import { isKeyDown } from "./keyboard";
-
+import { getSingleTouch } from "./touch";
 import React from "react";
 import { Polar2D } from "./Polar2D";
 import { Vector2D } from "./Vector2D";
+
+const usingTouch = 'ontouchstart' in document.documentElement;
 
 export function App() {
 
@@ -14,7 +16,11 @@ export function App() {
         <div className="app">
             <div className="caption">
                 <div className="instructions">
-                    Press Z to rotate your ship anti-clockwise, X for clockwise. Press M to fire your booster rocket.
+                {
+                    usingTouch 
+                        ? `Tap the screen to fire your booster rocket in the direction of your finger.`
+                        : `Press Z to rotate your ship anti-clockwise, X for clockwise. Press M to fire your booster rocket.`
+                }                    
                 </div>
                 <div className="link">
                     <a href="https://github.com/danielearwicker/spaceballs/">Source</a>
@@ -139,6 +145,19 @@ function renderFrame(ctx: CanvasRenderingContext2D) {
 
     ctx.restore();
 
+    let firing = false;
+
+    const touch = getSingleTouch();
+    if (touch) {
+
+        const touchVector = new Vector2D(
+            (touch.x * window.devicePixelRatio) - (w / 2),
+            (touch.y * window.devicePixelRatio) - (h / 2));
+
+        orientation = touchVector.subtract(state.position).polar.angle;
+        firing = true;
+    }
+
     if (isKeyDown("z")) {
         orientation -= 0.05;
     } else if (isKeyDown("x")) {
@@ -146,6 +165,10 @@ function renderFrame(ctx: CanvasRenderingContext2D) {
     }
 
     if (isKeyDown("m")) {
+        firing = true;
+    }
+    
+    if (firing) {
         state = { 
             ...state,
             velocity: state.velocity.add(new Polar2D(orientation, 0.02).vector)
