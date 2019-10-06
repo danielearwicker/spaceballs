@@ -1,7 +1,7 @@
 import { AnimationCanvas } from "./AnimationCanvas";
 import { PolarCanvas } from "./PolarCanvas";
 import { ship } from "./ship";
-import { planet, planetRadius } from "./planet";
+import { Planet } from "./Planet";
 import { isKeyDown } from "./keyboard";
 
 import React from "react";
@@ -25,7 +25,7 @@ export function App() {
     );
 }
 
-const bigG = 2000;
+const bigG = 400;
 
 interface Projectile {
     readonly position: Vector2D;
@@ -43,19 +43,33 @@ let flame = 0;
 let trajectory: Vector2D[] = [];
 let trajectoryClosed = false;
 
+const planets: Planet[] = [
+    new Planet(new Vector2D(-200, -200), 5),
+    new Planet(new Vector2D(200, 200), 2)
+];
+
 function integrate(projectile: Projectile, width: number, height: number): Projectile | undefined {
-    const polarPosition = projectile.position.polar;
 
-    if (polarPosition.radius < planetRadius || 
-        (polarPosition.radius > width &&
-         polarPosition.radius > height)) {
-
+    const fromCentre = projectile.position.polar.radius;
+    if (fromCentre > width && fromCentre > height) {
         return undefined;
     }
 
-    const gravity = bigG / Math.pow(polarPosition.radius, 2);
+    let velocity = projectile.velocity;
 
-    const velocity = projectile.velocity.add(new Polar2D(polarPosition.angle, -gravity).vector);
+    for (const planet of planets) {
+
+        const polarPosition = projectile.position.subtract(planet.position).polar;
+
+        if (polarPosition.radius < planet.radius) {
+            return undefined;
+        }
+
+        const gravity = planet.mass * bigG / Math.pow(polarPosition.radius, 2);
+
+        velocity = velocity.add(new Polar2D(polarPosition.angle, -gravity).vector);
+    }
+    
     const position = projectile.position.add(velocity);
 
     return { position, velocity };
@@ -113,7 +127,9 @@ function renderFrame(ctx: CanvasRenderingContext2D) {
         ctx.strokeStyle = "white";
     }
 
-    planet(ctx);
+    for (const planet of planets) {
+        planet.render(ctx);
+    }
 
     ctx.save();
     ctx.translate(state.position.x, state.position.y);

@@ -1,10 +1,21 @@
-export const planetRadius = 50;
+import { Vector2D } from "./Vector2D";
 
-export function planet(ctx: CanvasRenderingContext2D) {
+export class Planet {
 
-    ctx.beginPath();
-    ctx.arc(0, 0, planetRadius, 0, Math.PI * 2);
+    constructor(
+        public readonly position: Vector2D,
+        public readonly mass: number) { }
 
-    ctx.fillStyle = "#832";
-    ctx.fill();
+    get radius() {
+        return this.mass * 10;
+    }
+
+    render(ctx: CanvasRenderingContext2D) {
+
+        ctx.beginPath();
+        ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+    
+        ctx.fillStyle = "#832";
+        ctx.fill();
+    }
 }
